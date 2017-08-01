@@ -89,6 +89,11 @@ auth = Auth(db, host_names=myconf.get('host.names'))
 service = Service()
 plugins = PluginManager()
 
+print "session:" 
+print session
+print "request.args:"
+print request.args
+
 from authclients import FaceBookAccount, googleAccount, LinkedInAccount
 
 if session.logintype == 'f':
@@ -99,7 +104,7 @@ elif session.logintype == 'l':
     auth.settings.login_form=LinkedInAccount()
 else:
     if request.function == 'user':
-        print request.args
+        
         if len(request.args) == 3 and request.args[0] == 'login' and request.args[1] == 'social':
             if request.args[2] == 'f':
                 session.logintype = 'f'

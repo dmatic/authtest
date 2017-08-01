@@ -125,7 +125,7 @@ class LinkedInAccount(OAuthAccount):
 
     def _make_new_state(self):
         return hashlib.md5(
-            '%s%s' % (random.randrange(0, 2 ** 63), LK_SECRET)).hexdigest()
+            '%s%s' % (random.randrange(0, 2 ** 63), linkedin_secret)).hexdigest()
 
     def get_user(self):
         if not self.accessToken():

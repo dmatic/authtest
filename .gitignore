@@ -1,0 +1,10 @@
+cache/
+databases/
+errors/
+private/
+sessions/
+uploads/
+authtest.sublime-project
+authtest.sublime-workspace
+*.log
+*.pyc
