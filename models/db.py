@@ -89,12 +89,7 @@ auth = Auth(db, host_names=myconf.get('host.names'))
 service = Service()
 plugins = PluginManager()
 
-print "session:" 
-print session
-print "request.args:"
-print request.args
-
-from authclients import FaceBookAccount, googleAccount, LinkedInAccount
+from authclients import FaceBookAccount, googleAccount, LinkedInAccount, TwitterAccount
 
 if session.logintype == 'f':
     auth.settings.login_form=FaceBookAccount()
@@ -102,6 +97,8 @@ elif session.logintype == 'g':
     auth.settings.login_form=googleAccount()
 elif session.logintype == 'l':
     auth.settings.login_form=LinkedInAccount()
+elif  session.logintype == 'g':
+    auth.settings.login_form=TwitterAccount()
 else:
     if request.function == 'user':
         
@@ -117,6 +114,11 @@ else:
                 session.logintype = 'l'
                 auth.settings.actions_disabled=['register', 'change_password','request_reset_password','profile']            
                 auth.settings.login_form=LinkedInAccount()
+            elif request.args[2] == 't':
+                session.logintype = 't'
+                auth.settings.actions_disabled=['register', 'change_password','request_reset_password','profile']            
+                auth.settings.login_form=TwitterAccount()
+
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables

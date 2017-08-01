@@ -17,7 +17,10 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
+
     return dict()
+
+
 
 
 def user():
