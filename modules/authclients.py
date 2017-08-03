@@ -1,3 +1,9 @@
+# packages needed for linkedin:
+# pip install linkedin
+# pip install python-linkedin
+# packages needed for facebook
+# pip install facebook-sdk
+
 import urllib2
 from gluon.contrib.appconfig import AppConfig
 import oauth2 as oauth
@@ -12,6 +18,7 @@ except ImportError:
 from facebook import GraphAPI, GraphAPIError
 from gluon.contrib.login_methods.oauth20_account import OAuthAccount
 
+# To configure google apps go to https://console.developers.google.com/
 
 class googleAccount(OAuthAccount):
     AUTH_URL="https://accounts.google.com/o/oauth2/auth"
@@ -46,6 +53,7 @@ class googleAccount(OAuthAccount):
                         last_name = uinfo['family_name'],
                         username = uinfo['id'], email=uinfo['email'])
 
+# To configure facebook apps go to https://developers.facebook.com/apps
 
 ## extend the OAUthAccount class
 class FaceBookAccount(OAuthAccount):
@@ -96,6 +104,8 @@ class FaceBookAccount(OAuthAccount):
                         email = '%s' %(email) )
 
 from gluon.http import HTTP
+
+
 try:
     from linkedin.linkedin import LinkedInApplication
 except ImportError:
@@ -105,7 +115,7 @@ from gluon.contrib.login_methods.oauth20_account import OAuthAccount
 import hashlib
 import random
 
-LK_RETURN_URL = 'http://fw1.sshreach.me:10210/authtest/default/user/login'
+# To configure linkedin apps go to https://www.linkedin.com/developer/apps/
 
 class LinkedInAccount(OAuthAccount):
     TOKEN_URL="https://www.linkedin.com/uas/oauth2/accessToken"
@@ -144,6 +154,7 @@ class LinkedInAccount(OAuthAccount):
                             username = username,
                             email = '%s' %(email) )            
 
+# To configure twitter apps go to https://apps.twitter.com/
 
 class TwitterAccount(OAuthAccount):
     AUTH_URL = "https://twitter.com/oauth/authorize"
