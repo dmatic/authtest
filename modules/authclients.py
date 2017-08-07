@@ -48,10 +48,11 @@ class googleAccount(OAuthAccount):
             session.token = None
             return
         data = uinfo_stream.read()
-        uinfo = json.loads(data)
+        uinfo = json.loads(data)        
         return dict(first_name = uinfo['given_name'],
                         last_name = uinfo['family_name'],
-                        username = uinfo['id'], email=uinfo['email'])
+                        username = uinfo['id'], email=uinfo['email'], 
+                        registration_id = 'g_' + uinfo['id'])
 
 # To configure facebook apps go to https://developers.facebook.com/apps
 
@@ -87,7 +88,7 @@ class FaceBookAccount(OAuthAccount):
             session.token = None
             self.graph = None
 
-        if user:
+        if user:            
             if not user.has_key('username'):
                 username = user['id']
             else:
@@ -98,10 +99,10 @@ class FaceBookAccount(OAuthAccount):
             else:
                 email = user['email']    
 
-            return dict(first_name = user['name'],
-                        last_name = user['name'],
+            return dict(first_name = user['name'],                        
                         username = username,
-                        email = '%s' %(email) )
+                        email = '%s' %(email), 
+                        registration_id = 'f_' + user['id'] )
 
 from gluon.http import HTTP
 
@@ -148,11 +149,13 @@ class LinkedInAccount(OAuthAccount):
                 email = '%s.fakemail' %(profile['id'])
             else:
                 email = profile['emailAddress']
+            print profile
 
             return dict(first_name = profile['firstName'],
                             last_name = profile['lastName'],
                             username = username,
-                            email = '%s' %(email) )            
+                            email = '%s' %(email),
+                            registration_id = 'ln_' + profile['id'] )            
 
 # To configure twitter apps go to https://apps.twitter.com/
 
@@ -185,5 +188,7 @@ class TwitterAccount(OAuthAccount):
             #redirect("http://google.com")
             return None        
         u = json.loads(content)
-        return dict(first_name = u['name'], username=u['screen_name'], name=u['name'], registration_id=u['id'])
+        print u
+        return dict(first_name = u['name'], username=u['screen_name'], name=u['name'], 
+            registration_id='tw_' + str(u['id']))
 
