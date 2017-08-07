@@ -149,7 +149,6 @@ class LinkedInAccount(OAuthAccount):
                 email = '%s.fakemail' %(profile['id'])
             else:
                 email = profile['emailAddress']
-            print profile
 
             return dict(first_name = profile['firstName'],
                             last_name = profile['lastName'],
@@ -188,7 +187,6 @@ class TwitterAccount(OAuthAccount):
             #redirect("http://google.com")
             return None        
         u = json.loads(content)
-        print u
         return dict(first_name = u['name'], username=u['screen_name'], name=u['name'], 
             registration_id='tw_' + str(u['id']))
 
