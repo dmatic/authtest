@@ -46,7 +46,6 @@ class googleAccount(OAuthAccount):
             uinfo_stream = urllib2.urlopen(uinfo_url)
         except:
             session.token = None
-            session.logintype = None
             return
         data = uinfo_stream.read()
         uinfo = json.loads(data)        

@@ -91,17 +91,16 @@ plugins = PluginManager()
 
 from authclients import FaceBookAccount, googleAccount, LinkedInAccount, TwitterAccount
 
-if session.logintype == 'f':
-    auth.settings.login_form=FaceBookAccount()
-elif session.logintype == 'g':
-    auth.settings.login_form=googleAccount()
-elif session.logintype == 'l':
-    auth.settings.login_form=LinkedInAccount()
-elif  session.logintype == 'g':
-    auth.settings.login_form=TwitterAccount()
-else:
-    if request.function == 'user':
-        
+if request.function == 'user':
+    if session.logintype == 'f':
+        auth.settings.login_form=FaceBookAccount()
+    elif session.logintype == 'g':
+        auth.settings.login_form=googleAccount()
+    elif session.logintype == 'l':
+        auth.settings.login_form=LinkedInAccount()
+    elif  session.logintype == 'g':
+        auth.settings.login_form=TwitterAccount()
+    else:
         if len(request.args) == 3 and request.args[0] == 'login' and request.args[1] == 'social':
             if request.args[2] == 'f':
                 session.logintype = 'f'
@@ -118,7 +117,8 @@ else:
                 session.logintype = 't'
                 auth.settings.actions_disabled=['register', 'change_password','request_reset_password','profile']            
                 auth.settings.login_form=TwitterAccount()
-
+else:
+    session.logintype = None
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
